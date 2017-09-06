@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulaire</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 <form id="form">
-    <input type="number" id="age" placeholder="Age">
+    <input type="number" id="age" placeholder="Age"><pre id="age_errors"></pre>
     <br />
     <br />
-    <input type="text" id="id" placeholder="Identifiant">
+    <input type="text" id="id" placeholder="Identifiant"><pre id="id_errors"></pre>
     <br />
     <br />
-    <input type="password" id="password" placeholder="Mot de passe">
+    <input type="password" id="password" placeholder="Mot de passe"><pre id="pwd_errors"></pre>
     <br />
     <br />
-    <input type="password" id="passwordRe" placeholder="Confirmation" disabled>
+    <input type="password" id="passwordRe" placeholder="Confirmation" disabled><pre id="pwdRe_errors"></pre>
     <br />
     <br />
     CGU :
-    <input type="checkbox" id="cgu" placeholder="CGU">
+    <input type="checkbox" id="cgu" placeholder="CGU"><pre id="cgu_errors"></pre>
     <br />
     <br />
     <button type="submit" id="submit" disabled>Envoyé</button>

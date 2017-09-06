@@ -15,13 +15,24 @@ var global_age, global_id, global_pwd, global_pwdRe, global_cgu;
 function validate_age()
 {
     var age = document.getElementById('age').value;
-    if(age < 18)
+
+    if(age === "")
     {
+        document.getElementById('age_errors').textContent = "Age requis";
         global_age = false;
     }
     else
     {
-        global_age = true;
+        if(age < 18)
+        {
+            document.getElementById('age_errors').textContent = "Trop jeune";
+            global_age = false;
+        }
+        else
+        {
+            document.getElementById('age_errors').textContent = "";
+            global_age = true;
+        }
     }
     validate_form()
 }
@@ -29,14 +40,33 @@ function validate_age()
 function validate_id()
 {
     var id = document.getElementById('id').value;
-    if(id.length > 12 || id.length <2 || !/^[a-zA-Z]+$/.test(id))
+    var len = false, regex = false;
+
+    var errors = "";
+    if (id === "")
     {
+        errors += "Id requis";
         global_id = false;
     }
     else
     {
-        global_id = true;
+        if(id.length > 12)
+        {
+            errors += "Trop long";
+            global_id = false;
+        }
+        if(!/^[a-zA-Z]+$/.test(id))
+        {
+            errors += "Char spé interdit";
+            global_id = false;
+        }
+        else
+        {
+            errors = "";
+            global_id = true;
+        }
     }
+    document.getElementById('id_errors').textContent = errors;
     validate_form()
 }
 
@@ -44,16 +74,66 @@ function validate_pwd()
 {
     var pwd = document.getElementById('password').value;
 
-    if(pwd.length > 30 || pwd.length <8 || !/^[a-zA-Z]+$/.test(pwd))
+    var min = false, max = false, len = false, digit = false, spe = false;
+    var errors = "";
+
+    if(pwd.length > 8) //Mot de passe de plus de 8 chars
     {
-        global_pwd = false;
-        document.getElementById('passwordRe').disabled = true;
+        len = true;
     }
-    else
+
+    if(/^(?=.*[a-z]).+$/.test(pwd)) //Contiens au moins une minuscule
+    {
+        min = true;
+    }
+
+    if(/^(?=.*[A-Z]).+$/.test(pwd)) //Contiens au moins une majuscule
+    {
+        max = true;
+    }
+
+    if(/^(?=.*\d).+$/.test(pwd)) //contien au moins un chiffre
+    {
+        digit = true;
+    }
+
+    if(/^(?=.*[_\W]).+$/.test(pwd)) //contien au moins un char spé
+    {
+        spe = true;
+    }
+
+    if(min && max && len && digit && spe)
     {
         document.getElementById('passwordRe').disabled = false;
         global_pwd = true;
     }
+    else
+    {
+        global_pwd = false;
+        document.getElementById('passwordRe').disabled = true;
+
+        if(!len)
+        {
+            errors += "Trop cours \n";
+        }
+        if(!min)
+        {
+            errors += "Pas de minuscule \n";
+        }
+        if(!max)
+        {
+            errors += "Pas de majuscule \n";
+        }
+        if(!digit)
+        {
+            errors += "Pas de chiffre \n";
+        }
+        if(!spe)
+        {
+            errors += "Pas de char spé \n";
+        }
+    }
+    document.getElementById('pwd_errors').textContent = errors;
     validate_form()
 }
 
@@ -64,10 +144,12 @@ function validate_pwdRe()
 
     if(pwd === pwd_re)
     {
+        document.getElementById('pwdRe_errors').textContent = "";
         global_pwdRe = true;
     }
     else
     {
+        document.getElementById('pwdRe_errors').textContent = "Mot de passe non identique";
         global_pwdRe = false;
     }
     validate_form()
@@ -79,10 +161,12 @@ function validate_cgu()
 
     if(cgu)
     {
+        document.getElementById('cgu_errors').textContent = "";
         global_cgu = true
     }
     else
     {
+        document.getElementById('cgu_errors').textContent = "CGU obligatoire";
         global_cgu = false;
     }
     validate_form()
@@ -98,4 +182,6 @@ function validate_form()
     {
         document.getElementById('submit').disabled = true;
     }
+
+    console.log(global_age);
 }
