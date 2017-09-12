@@ -82,22 +82,22 @@ function validate_pwd()
         len = true;
     }
 
-    if(/^(?=.*[a-z]).+$/.test(pwd)) //Contiens au moins une minuscule
+    if(/[a-z]/.test(pwd)) //Contiens au moins une minuscule
     {
         min = true;
     }
 
-    if(/^(?=.*[A-Z]).+$/.test(pwd)) //Contiens au moins une majuscule
+    if(/[A-Z]/.test(pwd)) //Contiens au moins une majuscule
     {
         max = true;
     }
 
-    if(/^(?=.*\d).+$/.test(pwd)) //contien au moins un chiffre
+    if(/\d/.test(pwd)) //contien au moins un chiffre
     {
         digit = true;
     }
 
-    if(/^(?=.*[_\W]).+$/.test(pwd)) //contien au moins un char spé
+    if(/\W/.test(pwd)) //contien au moins un char spé
     {
         spe = true;
     }
@@ -134,7 +134,7 @@ function validate_pwd()
         }
     }
     document.getElementById('pwd_errors').textContent = errors;
-    validate_form()
+    validate_pwdRe()
 }
 
 function validate_pwdRe()
