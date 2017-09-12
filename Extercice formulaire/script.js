@@ -182,6 +182,4 @@ function validate_form()
     {
         document.getElementById('submit').disabled = true;
     }
-
-    console.log(global_age);
 }
