@@ -55,7 +55,7 @@ function validate_id()
             errors += "Trop long";
             global_id = false;
         }
-        if(!/^[a-zA-Z]+$/.test(id))
+        if(!/[a-zA-Z]/.test(id))
         {
             errors += "Char spé interdit";
             global_id = false;
