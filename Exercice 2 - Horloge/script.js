@@ -38,7 +38,7 @@ function uneSeconde()
                 secondes = "0" + secondes;
             }
 
-            if(heurs < 10)
+            if(heurs < 10 && heurs.toString().length < 2)
             {
                 heurs = "0" + heurs;
             }
