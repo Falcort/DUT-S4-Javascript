@@ -9,15 +9,23 @@
 
 <h1 id="time"></h1>
 
-<h2>Ajouter alarme</h2>
+<h2>Ajouter alarme :</h2>
 
-<form id="addAlarme">
 <input type="number" id="heures" placeholder="Heures" />
 <input type="number" id="minutes" placeholder="Minutes" />
 <input type="text" id="nom" placeholder="Nom de l'alarme" />
-<button type="submit" id="ajouter">Ajouter</button>
-</form>
+<button id="ajouter">Ajouter</button>
 
+<h2>Alarmes :</h2>
+<table id="table">
+    <tr>
+        <th>Active</th>
+        <th>Heures</th>
+        <th>Minutes</th>
+        <th>Nom</th>
+        <th>Supprimer</th>
+    </tr>
+</table>
 <script type="text/javascript" src="script.js"></script>
 </body>
 </html>

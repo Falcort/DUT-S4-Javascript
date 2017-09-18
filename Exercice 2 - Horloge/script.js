@@ -2,7 +2,7 @@ var time = new Date();
 var heurs = time.getHours();
 var minutes = time.getMinutes();
 var secondes = time.getSeconds();
-//document.getElementById("time").textContent = time;
+var alarmes = [];
 document.getElementById("time").textContent = heurs + ":" + minutes + ":" + secondes;
 
 window.addEventListener("load", createPage());
@@ -69,7 +69,6 @@ function check_Heures()
     }
 }
 
-
 function check_Minutes()
 {
     if(document.getElementById('minutes').value > 60 ||  document.getElementById('minutes').value < 0)
@@ -79,7 +78,28 @@ function check_Minutes()
     }
 }
 
+function add_Alarme()
+{
+    var func_heur, func_minutes, func_name;
+    func_heur = document.getElementById('heures').value;
+    func_minutes = document.getElementById('minutes').value;
+    func_name = document.getElementById('nom').value;
 
-function add_Alarme() {
-    
+    alarmes.push(func_heur + ";" + func_minutes + ";" + func_name);
+    alarme_HTML(func_heur, func_minutes, func_name);
+}
+
+function alarme_HTML(g_heur, g_minute, g_nom)
+{
+    var table = document.getElementById("table");
+    var row = table.insertRow(1);
+    var active = row.insertCell(0);
+    var heures = row.insertCell(1);
+    var minutes = row.insertCell(2);
+    var nom = row.insertCell(3);
+    var supp = row.insertCell(4);
+    heures.innerHTML = g_heur;
+    minutes.innerHTML = g_minute;
+    nom.innerHTML = g_nom;
+
 }
