@@ -5,7 +5,16 @@ var secondes = time.getSeconds();
 //document.getElementById("time").textContent = time;
 document.getElementById("time").textContent = heurs + ":" + minutes + ":" + secondes;
 
-window.addEventListener("load", uneSeconde);
+window.addEventListener("load", createPage());
+
+function createPage()
+{
+    document.getElementById('heures').addEventListener('input', check_Heures);
+    document.getElementById('minutes').addEventListener('input', check_Minutes);
+    document.getElementById('ajouter').addEventListener('click', add_Alarme);
+    uneSeconde();
+}
+
 function uneSeconde()
 {
     setInterval
@@ -48,4 +57,29 @@ function uneSeconde()
         1000
     );
 
+}
+
+function check_Heures()
+{
+    console.log("Val = " + document.getElementById('heures').value);
+    if(document.getElementById('heures').value > 24 ||  document.getElementById('heures').value < 0)
+    {
+        alert("Heure invalide");
+        document.getElementById('heures').value = "";
+    }
+}
+
+
+function check_Minutes()
+{
+    if(document.getElementById('minutes').value > 60 ||  document.getElementById('minutes').value < 0)
+    {
+        alert("Minutes invalide");
+        document.getElementById('minutes').value = "";
+    }
+}
+
+
+function add_Alarme() {
+    
 }
