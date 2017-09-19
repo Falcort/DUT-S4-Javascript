@@ -22,21 +22,10 @@ function uneSeconde()
     (
         function()
         {
-            secondes++;
-            if(secondes === 60)
-            {
-                global_minutes++;
-                secondes = 0;
-            }
-            if(global_minutes === 60)
-            {
-                global_heurs++;
-                global_minutes = 0;
-            }
-            if(global_heurs === 24 && global_minutes === 60 && secondes ===60)
-            {
-                global_heurs = 00;
-            }
+            time = new Date();
+            global_heurs = time.getHours();
+            global_minutes = time.getMinutes();
+            secondes = time.getSeconds();
 
             if(global_minutes < 10 && global_minutes.toString().length <2)
             {
@@ -108,7 +97,7 @@ function alarme_HTML(g_heur, g_minute, g_nom)
     minutes.innerHTML = "<input id=\"min" + i + "\" type=\"number\" value=\"" + g_minute +"\" />";
     nom.innerHTML = "<input id=\"nom" + i + "\" type=\"text\" value=\"" + g_nom +"\" />";
     active.innerHTML = "<input id=\"active" + i + "\" type=\"checkbox\" />";
-    supp.innerHTML = "<button  id=\"" + i + "\"" +">Supprimer</button>";
+    supp.innerHTML = "<button  id=\"" + i + "\"" +">-</button>";
     document.getElementById(i).addEventListener('click', del_alarme);
     i++;
 }
