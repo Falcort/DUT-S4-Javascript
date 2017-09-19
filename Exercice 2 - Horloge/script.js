@@ -55,6 +55,7 @@ function uneSeconde()
 
             document.getElementById("time").textContent = global_heurs + ":" + global_minutes + ":" + secondes;
             isAlarme();
+            console.log(alarmes);
         },
         1000
     );
@@ -118,6 +119,18 @@ function del_alarme()
     var row = document.getElementById("row" + this.id);
     var parent = row.parentNode;
     parent.removeChild(row);
+
+    var x=0, alarme_slice, result;
+
+    for (x=0; x<alarmes.length; x++)
+    {
+        alarme_slice = alarmes[x].split(';');
+        if(alarme_slice[3] === this.id)
+        {
+            result = x;
+        }
+        alarmes.splice(result, 1);
+    }
 }
 
 function isAlarme()
@@ -139,3 +152,5 @@ function isAlarme()
         }
     }
 }
+
+//Alarme qui boucle et supprime entrer dans le tableau
