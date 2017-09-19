@@ -75,6 +75,16 @@ function add_Alarme()
     func_minutes = document.getElementById('minutes').value;
     func_name = document.getElementById('nom').value;
 
+    if(func_heur < 10 && func_heur.toString().length <2)
+    {
+        func_heur = "0" + func_heur;
+    }
+
+    if(func_minutes < 10 && func_minutes.toString().length <2)
+    {
+        func_minutes = "0" + func_minutes;
+    }
+
     alarmes.push(func_heur + ";" + func_minutes + ";" + func_name + ";" + i);
     alarme_HTML(func_heur, func_minutes, func_name);
 
