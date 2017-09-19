@@ -47,7 +47,6 @@ function uneSeconde()
         },
         1000
     );
-
 }
 
 function check_Heures()
@@ -112,11 +111,12 @@ function alarme_HTML(g_heur, g_minute, g_nom)
     document.getElementById("heur" + i).addEventListener('input', edit_alarme);
     document.getElementById("min" + i).addEventListener('input', edit_alarme);
     document.getElementById("nom" + i).addEventListener('input', edit_alarme);
+    document.getElementById("active"+i).checked = true;
     i++;
 }
+
 function edit_alarme()
 {
-    console.log(this.id);
     var string, id, x, alarme_slice = [], result, result_id;
     var heure, minute, name, id2;
     id = this.id.substr(this.id.length-1);
@@ -134,7 +134,6 @@ function edit_alarme()
             result_id = x;
             if(string === "heur")
             {
-                console.log(this.value);
                 result = this.value + ";" + minute + ";" + name + ";" + id;
             }
             else if (string === "min")
@@ -189,5 +188,3 @@ function isAlarme()
         }
     }
 }
-
-//Alarme qui boucle
