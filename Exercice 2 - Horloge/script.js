@@ -109,7 +109,45 @@ function alarme_HTML(g_heur, g_minute, g_nom)
     active.innerHTML = "<input id=\"active" + i + "\" type=\"checkbox\" />";
     supp.innerHTML = "<button  id=\"" + i + "\"" +">-</button>";
     document.getElementById(i).addEventListener('click', del_alarme);
+    document.getElementById("heur" + i).addEventListener('input', edit_alarme);
+    document.getElementById("min" + i).addEventListener('input', edit_alarme);
+    document.getElementById("nom" + i).addEventListener('input', edit_alarme);
     i++;
+}
+function edit_alarme()
+{
+    console.log(this.id);
+    var string, id, x, alarme_slice = [], result, result_id;
+    var heure, minute, name, id2;
+    id = this.id.substr(this.id.length-1);
+    string = this.id.substr(0, this.id.length-1);
+    for(x=0; x<alarmes.length; x++)
+    {
+        alarme_slice = alarmes[x].split(';');
+        heure = alarme_slice[0];
+        minute = alarme_slice[1];
+        name = alarme_slice[2];
+        id2 = alarme_slice[3];
+
+        if(id === id2)
+        {
+            result_id = x;
+            if(string === "heur")
+            {
+                console.log(this.value);
+                result = this.value + ";" + minute + ";" + name + ";" + id;
+            }
+            else if (string === "min")
+            {
+                result = heure + ";" + this.value + ";" + name + ";" + id;
+            }
+            else
+            {
+                result = heure + ";" + minute + ";" + this.value + ";" + id;
+            }
+        }
+        alarmes[result_id] = result;
+    }
 }
 
 function del_alarme()
