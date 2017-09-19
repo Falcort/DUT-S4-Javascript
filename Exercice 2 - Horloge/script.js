@@ -1,10 +1,10 @@
 var time = new Date();
-var heurs = time.getHours();
-var minutes = time.getMinutes();
+var global_heurs = time.getHours();
+var global_minutes = time.getMinutes();
 var secondes = time.getSeconds();
 var alarmes = [];
 var i=0;
-document.getElementById("time").textContent = heurs + ":" + minutes + ":" + secondes;
+document.getElementById("time").textContent = global_heurs + ":" + global_minutes + ":" + secondes;
 
 window.addEventListener("load", createPage());
 
@@ -25,22 +25,22 @@ function uneSeconde()
             secondes++;
             if(secondes === 60)
             {
-                minutes++;
+                global_minutes++;
                 secondes = 0;
             }
-            if(minutes === 60)
+            if(global_minutes === 60)
             {
-                heurs++;
-                minutes = 0;
+                global_heurs++;
+                global_minutes = 0;
             }
-            if(heurs === 24 && minutes === 60 && secondes ===60)
+            if(global_heurs === 24 && global_minutes === 60 && secondes ===60)
             {
-                heurs = 00;
+                global_heurs = 00;
             }
 
-            if(minutes < 10 && minutes.toString().length <2)
+            if(global_minutes < 10 && global_minutes.toString().length <2)
             {
-                minutes = "0" + minutes;
+                global_minutes = "0" + global_minutes;
             }
 
             if(secondes < 10 && secondes.toString().length <2)
@@ -48,12 +48,13 @@ function uneSeconde()
                 secondes = "0" + secondes;
             }
 
-            if(heurs < 10 && heurs.toString().length < 2)
+            if(global_heurs < 10 && global_heurs.toString().length < 2)
             {
-                heurs = "0" + heurs;
+                global_heurs = "0" + global_heurs;
             }
 
-            document.getElementById("time").textContent = heurs + ":" + minutes + ":" + secondes;
+            document.getElementById("time").textContent = global_heurs + ":" + global_minutes + ":" + secondes;
+            isAlarme();
         },
         1000
     );
@@ -62,7 +63,6 @@ function uneSeconde()
 
 function check_Heures()
 {
-    console.log("Val = " + document.getElementById('heures').value);
     if(document.getElementById('heures').value > 24 ||  document.getElementById('heures').value < 0)
     {
         alert("Heure invalide");
@@ -86,7 +86,7 @@ function add_Alarme()
     func_minutes = document.getElementById('minutes').value;
     func_name = document.getElementById('nom').value;
 
-    alarmes.push(func_heur + ";" + func_minutes + ";" + func_name);
+    alarmes.push(func_heur + ";" + func_minutes + ";" + func_name + ";" + i);
     alarme_HTML(func_heur, func_minutes, func_name);
 
     document.getElementById('heures').value = "";
@@ -118,4 +118,24 @@ function del_alarme()
     var row = document.getElementById("row" + this.id);
     var parent = row.parentNode;
     parent.removeChild(row);
+}
+
+function isAlarme()
+{
+    var x=0;
+    var split_alarme = [];
+    var heur, minutes, name, id, active;
+    for(x=0; x<alarmes.length; x++)
+    {
+        split_alarme = alarmes[x].split(";");
+        heur = split_alarme[0];
+        minutes = split_alarme[1];
+        name = split_alarme[2];
+        id = split_alarme[3];
+        active = document.getElementById("active"+id).checked;
+        if(global_minutes.toString() === minutes.toString() && global_heurs.toString() === heur.toString() && active)
+        {
+            alert(name);
+        }
+    }
 }
