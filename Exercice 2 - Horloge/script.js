@@ -55,7 +55,6 @@ function uneSeconde()
 
             document.getElementById("time").textContent = global_heurs + ":" + global_minutes + ":" + secondes;
             isAlarme();
-            console.log(alarmes);
         },
         1000
     );
@@ -149,8 +148,9 @@ function isAlarme()
         if(global_minutes.toString() === minutes.toString() && global_heurs.toString() === heur.toString() && active)
         {
             alert(name);
+            document.getElementById("active" + id).checked = false;
         }
     }
 }
 
-//Alarme qui boucle et supprime entrer dans le tableau
+//Alarme qui boucle
