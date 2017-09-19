@@ -3,6 +3,7 @@ var heurs = time.getHours();
 var minutes = time.getMinutes();
 var secondes = time.getSeconds();
 var alarmes = [];
+var i=0;
 document.getElementById("time").textContent = heurs + ":" + minutes + ":" + secondes;
 
 window.addEventListener("load", createPage());
@@ -37,12 +38,12 @@ function uneSeconde()
                 heurs = 00;
             }
 
-            if(minutes < 10)
+            if(minutes < 10 && minutes.toString().length <2)
             {
                 minutes = "0" + minutes;
             }
 
-            if(secondes < 10)
+            if(secondes < 10 && secondes.toString().length <2)
             {
                 secondes = "0" + secondes;
             }
@@ -87,19 +88,34 @@ function add_Alarme()
 
     alarmes.push(func_heur + ";" + func_minutes + ";" + func_name);
     alarme_HTML(func_heur, func_minutes, func_name);
+
+    document.getElementById('heures').value = "";
+    document.getElementById('minutes').value = "";
+    document.getElementById('nom').value = "";
 }
 
 function alarme_HTML(g_heur, g_minute, g_nom)
 {
     var table = document.getElementById("table");
     var row = table.insertRow(1);
+    row.id = "row" + i;
     var active = row.insertCell(0);
     var heures = row.insertCell(1);
     var minutes = row.insertCell(2);
     var nom = row.insertCell(3);
     var supp = row.insertCell(4);
-    heures.innerHTML = g_heur;
-    minutes.innerHTML = g_minute;
-    nom.innerHTML = g_nom;
+    heures.innerHTML = "<input id=\"heur" + i + "\" type=\"number\" value=\"" + g_heur +"\" />";
+    minutes.innerHTML = "<input id=\"min" + i + "\" type=\"number\" value=\"" + g_minute +"\" />";
+    nom.innerHTML = "<input id=\"nom" + i + "\" type=\"text\" value=\"" + g_nom +"\" />";
+    active.innerHTML = "<input id=\"active" + i + "\" type=\"checkbox\" />";
+    supp.innerHTML = "<button  id=\"" + i + "\"" +">Supprimer</button>";
+    document.getElementById(i).addEventListener('click', del_alarme);
+    i++;
+}
 
+function del_alarme()
+{
+    var row = document.getElementById("row" + this.id);
+    var parent = row.parentNode;
+    parent.removeChild(row);
 }
