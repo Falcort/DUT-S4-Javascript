@@ -4,6 +4,10 @@ var global_minutes = time.getMinutes();
 var secondes = time.getSeconds();
 var alarmes = [];
 var i=0;
+
+var audio1 = new Audio('alarme1.mp3');
+var audio2 = new Audio('alarme2.mp3');
+
 document.getElementById("time").textContent = global_heurs + ":" + global_minutes + ":" + secondes;
 
 window.addEventListener("load", createPage());
@@ -92,7 +96,7 @@ function add_Alarme()
     document.getElementById('nom').value = "";
 }
 
-function alarme_HTML(g_heur, g_minute, g_nom)
+function alarme_HTML(g_heur, g_minute, g_nom, g_audio)
 {
     var table = document.getElementById("table");
     var row = table.insertRow(1);
@@ -101,12 +105,15 @@ function alarme_HTML(g_heur, g_minute, g_nom)
     var heures = row.insertCell(1);
     var minutes = row.insertCell(2);
     var nom = row.insertCell(3);
-    var supp = row.insertCell(4);
+    var audio = row.insertCell(4);
+    var supp = row.insertCell(5);
+
     heures.innerHTML = "<input id=\"heur" + i + "\" type=\"number\" value=\"" + g_heur +"\" />";
     minutes.innerHTML = "<input id=\"min" + i + "\" type=\"number\" value=\"" + g_minute +"\" />";
     nom.innerHTML = "<input id=\"nom" + i + "\" type=\"text\" value=\"" + g_nom +"\" />";
     active.innerHTML = "<input id=\"active" + i + "\" type=\"checkbox\" />";
     supp.innerHTML = "<button  id=\"" + i + "\"" +">-</button>";
+    audio.innerHTML = "<select id=\"audio" + i + "\" name=\"audio" + i + "\">" + "<option value=\"audio1\">Alarme 1</option>" + "<option value=\"audio2\">Alarme 2</option>" + "</select>";
     document.getElementById(i).addEventListener('click', del_alarme);
     document.getElementById("heur" + i).addEventListener('input', edit_alarme);
     document.getElementById("min" + i).addEventListener('input', edit_alarme);
@@ -172,7 +179,7 @@ function isAlarme()
 {
     var x=0;
     var split_alarme = [];
-    var heur, minutes, name, id, active;
+    var heur, minutes, name, id, active, audio;
     for(x=0; x<alarmes.length; x++)
     {
         split_alarme = alarmes[x].split(";");
@@ -184,6 +191,15 @@ function isAlarme()
         if(global_minutes.toString() === minutes.toString() && global_heurs.toString() === heur.toString() && active)
         {
             alert(name);
+            audio = document.getElementById("audio" + id).options[document.getElementById("audio" + id).selectedIndex].text;
+            if(audio === "Alarme 1")
+            {
+                audio1.play();
+            }
+            else if(audio === "Alarme 2")
+            {
+                audio2.play();
+            }
             document.getElementById("active" + id).checked = false;
         }
     }
