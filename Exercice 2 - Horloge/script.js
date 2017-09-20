@@ -113,7 +113,14 @@ function alarme_HTML(g_heur, g_minute, g_nom, g_audio)
     nom.innerHTML = "<input id=\"nom" + i + "\" type=\"text\" value=\"" + g_nom +"\" />";
     active.innerHTML = "<input id=\"active" + i + "\" type=\"checkbox\" />";
     supp.innerHTML = "<button  id=\"" + i + "\"" +">-</button>";
-    audio.innerHTML = "<select id=\"audio" + i + "\" name=\"audio" + i + "\">" + "<option value=\"audio1\">Alarme 1</option>" + "<option value=\"audio2\">Alarme 2</option>" + "</select>";
+    if(document.getElementById("audio_base").selectedIndex === 0)
+    {
+        audio.innerHTML = "<select id=\"audio" + i + "\" name=\"audio" + i + "\">" + "<option value=\"audio1\" selected>Alarme 1</option>" + "<option value=\"audio2\">Alarme 2</option>" + "</select>";
+    }
+    else if(document.getElementById("audio_base").selectedIndex === 1)
+    {
+        audio.innerHTML = "<select id=\"audio" + i + "\" name=\"audio" + i + "\">" + "<option value=\"audio1\">Alarme 1</option>" + "<option value=\"audio2\" selected>Alarme 2</option>" + "</select>";
+    }
     document.getElementById(i).addEventListener('click', del_alarme);
     document.getElementById("heur" + i).addEventListener('input', edit_alarme);
     document.getElementById("min" + i).addEventListener('input', edit_alarme);
