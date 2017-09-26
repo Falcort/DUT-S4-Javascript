@@ -1,4 +1,9 @@
 window.addEventListener("hashchange", change);
+window.addEventListener("load", init);
+function init()
+{
+    change();
+}
 
 function change()
 {
@@ -6,7 +11,15 @@ function change()
     var url_change = window.location.href;
     url_change = url_change.replace("#", "");
     array = url_change.split("/");
-    var url = "chapitre" + array[array.length-1] + ".json";
+    var url;
+    if(array.length === 4 && array[3] != "")
+    {
+        url = "chapitre" + array[array.length-1] + ".json";
+    }
+    else
+    {
+        url = "chapitre1.json";
+    }
     load(url);
 }
 
@@ -16,7 +29,7 @@ function load(url)
     req.open("GET", url);
     req.onerror = function()
     {
-        console.log("Échec de chargement "+ url);
+        console.log("Échec de chargement" + url);
     };
 
     var json;
@@ -26,7 +39,6 @@ function load(url)
         if (req.status === 200)
         {
             json = JSON.parse(req.responseText);
-
         }
         else
         {
