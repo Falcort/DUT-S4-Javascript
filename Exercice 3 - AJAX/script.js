@@ -8,13 +8,12 @@ function init()
 function change()
 {
     var array = []
-    var url_change = window.location.href;
-    url_change = url_change.replace("#", "");
-    array = url_change.split("/");
+    var hash = window.location.hash;
+    hash = hash.replace("#", "");
     var url;
-    if(array.length === 4 && array[3] != "")
+    if(hash != "")
     {
-        url = "chapitre" + array[array.length-1] + ".json";
+        url = "chapitre" + hash + ".json";
     }
     else
     {
@@ -39,6 +38,14 @@ function load(url)
         if (req.status === 200)
         {
             json = JSON.parse(req.responseText);
+
+            document.getElementById("text").innerHTML = "<p>" + json.txt + "</p>";
+            var final = "";
+            for (var i=0; i<json.links.length; i++)
+            {
+                final += "<a href='" + json.links[i].link + "'>" + json.links[i].txt + "</a><br />";
+            }
+            document.getElementById("links").innerHTML = "<br />" + final;
         }
         else
         {
@@ -47,15 +54,4 @@ function load(url)
     };
 
     req.send();
-
-    req.addEventListener('load', function()
-    {
-        document.getElementById("text").innerHTML = "<p>" + json.txt + "</p>";
-        var final = "";
-        for (var i=0; i<json.links.length; i++)
-        {
-            final += "<a href='" + json.links[i].link + "'>" + json.links[i].txt + "</a><br />";
-        }
-        document.getElementById("links").innerHTML = "<br />" + final;
-    });
 }
