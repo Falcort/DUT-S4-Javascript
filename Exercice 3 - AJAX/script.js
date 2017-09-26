@@ -1,33 +1,49 @@
-var url = "chapitre1.json"
-var req = new XMLHttpRequest();
-req.open("GET", url);
-req.onerror = function()
+window.addEventListener("hashchange", change);
+
+function change()
 {
-    console.log("Échec de chargement "+ url);
-};
+    var array = []
+    var url_change = window.location.href;
+    url_change = url_change.replace("#", "");
+    array = url_change.split("/");
+    var url = "chapitre" + array[array.length-1] + ".json";
+    load(url);
+}
 
-var json;
-
-req.onload = function()
+function load(url)
 {
-    if (req.status === 200)
+    var req = new XMLHttpRequest();
+    req.open("GET", url);
+    req.onerror = function()
     {
-        json = JSON.parse(req.responseText);
+        console.log("Échec de chargement "+ url);
+    };
 
-    }
-    else
+    var json;
+
+    req.onload = function()
     {
-        console.log("Erreur " + req.status);
-    }
-};
+        if (req.status === 200)
+        {
+            json = JSON.parse(req.responseText);
 
-req.send();
+        }
+        else
+        {
+            console.log("Erreur " + req.status);
+        }
+    };
 
-req.addEventListener('load', function()
-{
-    document.getElementById("text").innerHTML = "<p>" + json.txt + "</p>";
-    for (var i=0; i<json.links.length; i++)
+    req.send();
+
+    req.addEventListener('load', function()
     {
-        document.getElementById("links").innerHTML = "<a href='" + json.links[i].link + "'>" + json.links[i].txt + "</a>";
-    }
-});
+        document.getElementById("text").innerHTML = "<p>" + json.txt + "</p>";
+        var final = "";
+        for (var i=0; i<json.links.length; i++)
+        {
+            final += "<a href='" + json.links[i].link + "'>" + json.links[i].txt + "</a><br />";
+        }
+        document.getElementById("links").innerHTML = "<br />" + final;
+    });
+}
