@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Paint</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
@@ -12,13 +13,40 @@
 <div id="Outils">
     <table>
         <tr>
-            <input type="radio" name="outils" value="draw" id="draw">Draw
+            <th>
+
+                <input type="radio" name="outils" value="draw" id="draw" checked>Draw
+                <input type="number" id="drawSize" value="1" />
+            </th>
         </tr>
         <tr>
-            <input type="radio" name="outils" value="rect" id="rect">Rectangle
+            <th>
+                <input type="radio" name="outils" value="rect" id="rect">Rectangle
+            </th>
         </tr>
         <tr>
-            <input type="radio" name="outils" value="rect" id="circle">Circle
+            <th>
+                <input type="radio" name="outils" value="rect" id="circle">Circle
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <input type="radio" name="outils" value="textRadio" id="textRadio">
+                <input type="text" id="text" placeholder="Text" />
+                <input type="number" id="textSize" value="30" />
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <input type="radio" name="outils" value="textStrokeRadio" id="textStrokeRadio">
+                <input type="text" id="textStroke" placeholder="Text vidé" />
+                <input type="number" id="textStrokeSize" value="30" />
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <input type="color" id="color" value="#000" />
+            </th>
         </tr>
     </table>
 </div>
