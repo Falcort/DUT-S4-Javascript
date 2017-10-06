@@ -4,7 +4,6 @@ var mouseIsDown;
 var drawLastPointX = null;
 var drawLastPointY = null;
 var color = "#fff";
-var lastCTX;
 
 function init()
 {
@@ -77,6 +76,10 @@ function init()
         mouseIsDown = false;
         startDraw(canvas, mouseUp, mouseDown);
     });
+    document.getElementById("reset").addEventListener("click", function () {
+        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+        canvasPreview.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    })
 }
 
 function getMousePosition(canvas, event)
@@ -104,6 +107,7 @@ function drawRectPreview(canvas, down, position)
 function  drawRect(canvas, up, down)
 {
     var ctx = canvas.getContext("2d");
+    ctx.beginPath();
     ctx.rect(up.x, up.y, down.x-up.x, down.y-up.y);
     ctx.fillStyle = color;
     ctx.fill();
