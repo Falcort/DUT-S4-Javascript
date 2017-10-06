@@ -197,7 +197,6 @@ function isAlarme()
         active = document.getElementById("active"+id).checked;
         if(global_minutes.toString() === minutes.toString() && global_heurs.toString() === heur.toString() && active)
         {
-            alert(name);
             audio = document.getElementById("audio" + id).options[document.getElementById("audio" + id).selectedIndex].text;
             if(audio === "Alarme 1")
             {

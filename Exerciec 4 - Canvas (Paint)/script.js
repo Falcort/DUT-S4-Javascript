@@ -4,10 +4,12 @@ var mouseIsDown;
 var drawLastPointX = null;
 var drawLastPointY = null;
 var color = "#fff";
+var lastCTX;
 
 function init()
 {
     var canvas;
+    var canvasPreview;
     var position;
     var mouseDown = false;
     var mouseUp;
@@ -16,12 +18,19 @@ function init()
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    canvasPreview = document.getElementById("canvasPreview");
+    canvasPreview.width = window.innerWidth;
+    canvasPreview.height = window.innerHeight;
 
-    canvas.addEventListener('mousemove', function(event)
+
+    canvasPreview.addEventListener('mousemove', function(event)
     {
         position = getMousePosition(canvas, event);
         color = document.getElementById("color").value;
         var draw = document.getElementById("draw");
+        var rect = document.getElementById("rect");
+        var circle = document.getElementById("circle");
+        var debug = document.getElementById("debug");
         if(draw.checked)
         {
             if(mouseIsDown)
@@ -30,18 +39,39 @@ function init()
                 drawDraw(canvas, mouseDown);
             }
         }
+        if(rect.checked)
+        {
+            if(mouseIsDown)
+            {
+                if(debug.checked)
+                {
+                    drawRectPreview(canvasPreview, mouseDown, position);
+                }
+            }
+        }
+        if(circle.checked)
+        {
+            if(mouseIsDown)
+            {
+                if(debug.checked)
+                {
+                    drawCirclePreview(canvasPreview, mouseDown, position);
+                }
+            }
+        }
+
         drawLastPointX = position.x;
         drawLastPointY = position.y;
     });
 
-    canvas.addEventListener("mousedown", function ()
+    canvasPreview.addEventListener("mousedown", function ()
     {
         mouseIsDown = true;
         mouseDown = position;
 
     });
 
-    canvas.addEventListener("mouseup", function ()
+    canvasPreview.addEventListener("mouseup", function ()
     {
         mouseUp = position;
         mouseIsDown = false;
@@ -60,11 +90,37 @@ function getMousePosition(canvas, event)
     };
 }
 
+function drawRectPreview(canvas, down, position)
+{
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.rect(down.x, down.y, position.x-down.x, position.y-down.y);
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.2;
+    ctx.fill();
+}
+
 function  drawRect(canvas, up, down)
 {
     var ctx = canvas.getContext("2d");
     ctx.rect(up.x, up.y, down.x-up.x, down.y-up.y);
     ctx.fillStyle = color;
+    ctx.fill();
+}
+
+function drawCirclePreview(canvas, down, position)
+{
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    var width = Math.abs(down.x - position.x);
+    var height = Math.abs(down.y - position.y);
+    var rayon = Math.sqrt((width*width) + (height*height));
+
+    ctx.arc(down.x,down.y,rayon,0,2*Math.PI);
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.2;
     ctx.fill();
 }
 

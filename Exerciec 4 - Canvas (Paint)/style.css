@@ -18,9 +18,33 @@ canvas
     position: fixed;
     top :10px;
     left: 10px;
+    z-index: 10000;
 }
 
-table
+table, th, td
 {
     border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: left;
+}
+
+body
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#canvas, #canvasPreview
+{
+    position: fixed;
+}
+
+#canvas
+{
+    z-index: -1;
 }
