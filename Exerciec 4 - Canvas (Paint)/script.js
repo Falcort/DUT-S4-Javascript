@@ -1,6 +1,6 @@
 window.addEventListener("load", init);
-var mouseIsDown;
 
+var mouseIsDown;
 var drawLastPointX = null;
 var drawLastPointY = null;
 var color = "#fff";
@@ -10,6 +10,21 @@ var canvasPreview;
 
 var contextFinal;
 var contextPreview;
+
+var debugEnable;
+var drawEnable = true;
+var rectEnable;
+var circleEnable;
+var textEnable;
+var textStrokeEnable;
+
+var textSize = 30;
+var textText = "";
+
+var textStrokeSize = 30;
+var textStroke = "";
+
+var drawSize;
 
 function init()
 {
@@ -30,13 +45,8 @@ function init()
     canvasPreview.addEventListener('mousemove', function(event)
     {
         position = getMousePosition(event);
-        color = document.getElementById("color").value;
-        var draw = document.getElementById("draw");
-        var rect = document.getElementById("rect");
-        var circle = document.getElementById("circle");
-        var debug = document.getElementById("debug");
 
-        if(draw.checked)
+        if(drawEnable)
         {
             if(mouseIsDown)
             {
@@ -45,22 +55,22 @@ function init()
             }
         }
 
-        if(rect.checked)
+        if(rectEnable)
         {
             if(mouseIsDown)
             {
-                if(debug.checked)
+                if(debugEnable)
                 {
                     drawRectPreview(mouseDown, position);
                 }
             }
         }
 
-        if(circle.checked)
+        if(circleEnable)
         {
             if(mouseIsDown)
             {
-                if(debug.checked)
+                if(debugEnable)
                 {
                     drawCirclePreview(mouseDown, position);
                 }
@@ -89,6 +99,88 @@ function init()
     {
         contextPreview.clearRect(0, 0, canvas.width, canvas.height);
         contextFinal.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    document.getElementById("debug").addEventListener("change", function ()
+    {
+        debugEnable = document.getElementById("debug").checked;
+    });
+
+    document.getElementById("draw").addEventListener("change", function ()
+    {
+        drawEnable = document.getElementById("draw").checked;
+        rectEnable = false;
+        circleEnable = false;
+        textEnable = false;
+        textStrokeEnable = false;
+    });
+
+    document.getElementById("rect").addEventListener("change", function ()
+    {
+        rectEnable = document.getElementById("rect").checked;
+        drawEnable = false;
+        circleEnable = false;
+        textEnable = false;
+        textStrokeEnable = false;
+    });
+
+    document.getElementById("circle").addEventListener("change", function ()
+    {
+        circleEnable = document.getElementById("circle").checked;
+        drawEnable = false;
+        rectEnable = false;
+        textEnable = false;
+        textStrokeEnable = false;
+    });
+
+    document.getElementById("textRadio").addEventListener("change", function ()
+    {
+        textEnable = document.getElementById("textRadio").checked;
+        drawEnable = false;
+        rectEnable = false;
+        circleEnable = false;
+        textStrokeEnable = false;
+    });
+
+    document.getElementById("textStrokeRadio").addEventListener("change", function ()
+    {
+        textStrokeEnable = document.getElementById("textStrokeRadio").checked;
+        textEnable = document.getElementById("textRadio").checked;
+        drawEnable = false;
+        rectEnable = false;
+        circleEnable = false;
+        textEnable = false;
+    });
+
+    document.getElementById("textSize").addEventListener("input", function ()
+    {
+        textSize = document.getElementById("textSize").value;
+    });
+
+    document.getElementById("text").addEventListener("input", function ()
+    {
+        textText = document.getElementById("text").value;
+    });
+
+    document.getElementById("textStrokeSize").addEventListener("input", function ()
+    {
+        textStrokeSize = document.getElementById("textStrokeSize").value;
+    });
+
+    document.getElementById("textStroke").addEventListener("input", function ()
+    {
+        textStroke = document.getElementById("textStroke").value;
+    });
+
+    document.getElementById("drawSize").addEventListener("input", function ()
+    {
+        drawSize = document.getElementById("drawSize").value;
+    });
+
+    document.getElementById("color").addEventListener("input", function ()
+    {
+        console.log("Color");
+        color = document.getElementById("color").value;
     });
 }
 
@@ -123,11 +215,12 @@ function drawRect(up, down)
 
 function drawCirclePreview(down, position)
 {
-    contextPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
-    contextPreview.beginPath();
     var width = Math.abs(down.x - position.x);
     var height = Math.abs(down.y - position.y);
     var rayon = Math.sqrt((width*width) + (height*height));
+
+    contextPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
+    contextPreview.beginPath();
 
     contextPreview.arc(down.x,down.y,rayon,0,2*Math.PI);
     contextPreview.fillStyle = color;
@@ -137,10 +230,11 @@ function drawCirclePreview(down, position)
 
 function drawCircle(up, down)
 {
-    contextFinal.beginPath();
     var width = Math.abs(down.x - up.x);
     var height = Math.abs(down.y - up.y);
     var rayon = Math.sqrt((width*width) + (height*height));
+
+    contextFinal.beginPath();
 
     contextFinal.arc(down.x,down.y,rayon,0,2*Math.PI);
     contextFinal.fillStyle = color;
@@ -149,27 +243,21 @@ function drawCircle(up, down)
 
 function drawText(down)
 {
-    var text = document.getElementById("text").value;
-    var size = document.getElementById("textSize").value;
-    contextFinal.font = size + "px Arial";
+    contextFinal.font = textSize + "px Arial";
     contextFinal.fillStyle = color;
-    contextFinal.fillText(text, down.x, down.y);
+    contextFinal.fillText(textText, down.x, down.y);
 }
 
 function drawTextStroke(down)
 {
-    var text = document.getElementById("textStroke").value;
-    var size = document.getElementById("textStrokeSize").value;
-    contextFinal.font = size + "px Arial";
+    contextFinal.font = textStrokeSize + "px Arial";
     contextFinal.strokeStyle = color;
-    contextFinal.strokeText(text, down.x, down.y);
+    contextFinal.strokeText(textStroke, down.x, down.y);
 }
 
 function drawDraw(down)
 {
-    var draw = document.getElementById("draw");
-    var size = document.getElementById("drawSize").value;
-    if(draw.checked)
+    if(drawEnable)
     {
         if(mouseIsDown)
         {
@@ -177,7 +265,7 @@ function drawDraw(down)
             contextFinal.moveTo(drawLastPointX,drawLastPointY);
             contextFinal.lineTo(down.x,down.y);
             contextFinal.strokeStyle = color;
-            contextFinal.lineWidth=size;
+            contextFinal.lineWidth=drawSize;
             contextFinal.stroke();
         }
     }
@@ -185,29 +273,22 @@ function drawDraw(down)
 
 function startDraw(up, down)
 {
-    var rect = document.getElementById("rect");
-    var circle = document.getElementById("circle");
-    var text = document.getElementById("textRadio");
-    var textStroke = document.getElementById("textStrokeRadio");
-
-    console.log("Draw");
-    if(rect.checked)
+    if(rectEnable)
     {
-        console.log("Rect");
         drawRect(up, down);
     }
 
-    if(circle.checked)
+    if(circleEnable)
     {
         drawCircle(up, down);
     }
 
-    if(text.checked)
+    if(textEnable)
     {
         drawText(down);
     }
 
-    if(textStroke.checked)
+    if(textStrokeEnable)
     {
         drawTextStroke(down);
     }
