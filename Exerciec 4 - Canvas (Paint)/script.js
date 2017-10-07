@@ -3,7 +3,7 @@ window.addEventListener("load", init);
 var mouseIsDown;
 var drawLastPointX = null;
 var drawLastPointY = null;
-var color = "#fff";
+var color = "#000000";
 
 var canvas;
 var canvasPreview;
@@ -11,7 +11,7 @@ var canvasPreview;
 var contextFinal;
 var contextPreview;
 
-var debugEnable;
+var debugEnable = false;
 var drawEnable = true;
 var rectEnable;
 var circleEnable;
@@ -28,9 +28,6 @@ var drawSize;
 
 function init()
 {
-    var position;
-    var mouseDown = false;
-    var mouseUp;
 
     canvas = document.getElementById("canvas");
     canvas.width = window.innerWidth;
@@ -41,6 +38,16 @@ function init()
     canvasPreview.width = window.innerWidth;
     canvasPreview.height = window.innerHeight;
     contextPreview = canvasPreview.getContext("2d");
+
+    create_eventListener();
+}
+
+function create_eventListener()
+{
+
+    var position;
+    var mouseDown = false;
+    var mouseUp;
 
     canvasPreview.addEventListener('mousemove', function(event)
     {
@@ -73,6 +80,28 @@ function init()
                 if(debugEnable)
                 {
                     drawCirclePreview(mouseDown, position);
+                }
+            }
+        }
+
+        if(textEnable)
+        {
+            if(mouseIsDown)
+            {
+                if(debugEnable)
+                {
+                    drawTextPreview(mouseDown, position);
+                }
+            }
+        }
+
+        if(textStrokeEnable)
+        {
+            if(mouseIsDown)
+            {
+                if(debugEnable)
+                {
+                    drawTextStrokePreview(mouseDown, position);
                 }
             }
         }
@@ -241,11 +270,51 @@ function drawCircle(up, down)
     contextFinal.fill();
 }
 
+function drawTextPreview(down, position)
+{
+    var width = Math.abs(down.x - position.x);
+    var height = Math.abs(down.y - position.y);
+    var taille = Math.sqrt((width*width) + (height*height));
+    textSize = taille;
+
+    /* A supprimer */
+    document.getElementById("textSize").value = taille;
+    /* A supprimer */
+
+    contextPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
+    contextPreview.beginPath();
+
+    contextPreview.font = textSize + "px Arial";
+    contextPreview.fillStyle = color;
+    contextPreview.globalAlpha = 0.2;
+    contextPreview.fillText(textText, down.x, down.y);
+}
+
 function drawText(down)
 {
     contextFinal.font = textSize + "px Arial";
     contextFinal.fillStyle = color;
     contextFinal.fillText(textText, down.x, down.y);
+}
+
+function drawTextStrokePreview(down, position)
+{
+    var width = Math.abs(down.x - position.x);
+    var height = Math.abs(down.y - position.y);
+    var taille = Math.sqrt((width*width) + (height*height));
+    textStrokeSize = taille;
+
+    /* A supprimer */
+    document.getElementById("textStrokeSize").value = taille;
+    /* A supprimer */
+
+    contextPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height);
+    contextPreview.beginPath();
+
+    contextPreview.font = textStrokeSize + "px Arial";
+    contextPreview.strokeStyle = color;
+    contextPreview.globalAlpha = 0.2;
+    contextPreview.strokeText(textStroke, down.x, down.y);
 }
 
 function drawTextStroke(down)
