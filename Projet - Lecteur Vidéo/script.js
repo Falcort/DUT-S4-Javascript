@@ -42,6 +42,7 @@ function init()
         function(event)
         {
             document.getElementById("volume").innerHTML = document.getElementById("range_sound").value;
+            video.volume = document.getElementById("range_sound").value/100;
         });
 
     document.getElementById("btn_full").addEventListener("click",
