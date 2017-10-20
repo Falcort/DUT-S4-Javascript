@@ -6,8 +6,61 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <i class="material-icons">play_arrow</i>
-        <i class="material-icons">pause</i>
-        <i class="material-icons">stop</i>
+        <table>
+            <tr>
+                <video id="video">
+                    <source src="video/mov_bbb.mp4" type="video/mp4">
+                </video>
+            </tr>
+            <tr>
+                <th>
+                    <input id="range_video" type="range">
+                    <p id="time">00 - 00</p>
+                </th>
+            </tr>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    Volume :
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <button id="btn_play">
+                        <i class="material-icons" id="play_btn">play_arrow</i>
+                    </button>
+                </td>
+                <td>
+                    <button id="btn_stop">
+                        <i class="material-icons">replay</i>
+                    </button>
+                </td>
+                <td>
+                    <input id="range_sound" type="range" value="50">
+                    <p id="volume">50</p>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <button id="btn_full">
+            <i class="material-icons">aspect_ratio</i>
+        </button>
+        <button id="btn_add">
+            <i class="material-icons">add</i>
+        </button>
+        <button id="btn_remove">
+            <i class="material-icons">clear</i>
+        </button>
+        <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
