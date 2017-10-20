@@ -9,14 +9,14 @@
     <body>
         <table>
             <tr>
-                <th colspan="3">
+                <th colspan="4">
                     <video id="video">
                         <source src="video/mov_bbb.mp4" type="video/mp4">
                     </video>
                 </th>
             </tr>
             <tr>
-                <th colspan="3">
+                <th colspan="4">
                     <input id="range_video" type="range">
                     <p id="time">00 - 00</p>
                 </th>
@@ -30,6 +30,9 @@
                 </th>
                 <th>
                     Volume :
+                </th>
+                <th>
+
                 </th>
             </tr>
             <tr>
@@ -46,6 +49,14 @@
                 <td>
                     <input id="range_sound" type="range" value="50">
                     <p id="volume">50</p>
+                    <button id="mute">
+                        <i class="material-icons" id="volume_icon">volume_down</i>
+                    </button>
+                </td>
+                <td>
+                    <button id="btn_full">
+                        <i class="material-icons">aspect_ratio</i>
+                    </button>
                 </td>
             </tr>
         </table>
@@ -55,9 +66,6 @@
         <br />
         <br />
         <br />
-        <button id="btn_full">
-            <i class="material-icons">aspect_ratio</i>
-        </button>
         <button id="btn_add">
             <i class="material-icons">add</i>
         </button>
