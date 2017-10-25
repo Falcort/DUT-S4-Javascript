@@ -4,6 +4,7 @@ window.addEventListener("load", init);
 var play = false;
 var muted = false;
 var started = false;
+var mouseDown;
 
 function init()
 {
@@ -102,13 +103,30 @@ function init()
     );
 
 
-    document.getElementById("progress").addEventListener("click",
+    document.getElementById("progress").addEventListener("mousedown",
         function (e)
         {
-            var offset = this.offsetLeft;
-            var position = Math.floor((e.pageX - offset)/this.offsetWidth*100);
-            var progress = document.getElementById("progress");
-            progress.value = position;
+            mouseDown = true;
+        }
+    );
+
+    document.getElementById("progress").addEventListener("mouseup",
+        function (e)
+        {
+            mouseDown = false;
+        }
+    );
+
+    document.getElementById("progress").addEventListener("mousemove",
+        function (e) {
+            if(mouseDown)
+            {
+                var offset = this.offsetLeft;
+                var position = Math.floor((e.pageX - offset)/this.offsetWidth*100);
+                var progress = document.getElementById("progress");
+                progress.value = position;
+                progress.value = position;
+            }
         }
     );
     /*$(".progress-bar").on("click", function(e) {
