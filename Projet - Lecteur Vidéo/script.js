@@ -3,12 +3,11 @@ var video = document.getElementById("video");
 window.addEventListener("load", init);
 var play = false;
 var muted = false;
-
-var dur_total;
-var curent_time;
+var started = false;
 
 function init()
 {
+
     setTime();
 
     /* Boutton pour lancer la video */
@@ -62,7 +61,6 @@ function init()
                 muted = false;
                 setVolume(0);
             }
-            console.log("Muted = " + muted);
         }
     );
 
@@ -90,7 +88,7 @@ function init()
     document.getElementById("range_video").addEventListener("input",
         function (event)
         {
-            document.getElementById(video.currentTime)
+            document.getElementById(video.currentTime);
             video.currentTime = document.getElementById("range_video").value/10;
         }
     );
@@ -102,13 +100,38 @@ function init()
             setTime();
         }
     );
+
+
+    document.getElementById("progress").addEventListener("click",
+        function (e)
+        {
+            var offset = this.offsetLeft;
+            var position = Math.floor((e.pageX - offset)/this.offsetWidth*100);
+            var progress = document.getElementById("progress");
+            progress.value = position;
+        }
+    );
+    /*$(".progress-bar").on("click", function(e) {
+        var offset = $(this).offset(),
+            position = Math.floor((e.pageX - offset.left)/$(this).width()*100) + 1;
+        $(this).find('.progress-bar__bar').css('transform','translateX('+position+'%)');
+        $(this).find('.progress-bar__bar').css('-webkit-transform','translateX('+position+'%)');
+    });*/
 }
 
 /* Fonction de mise en forme du temps et d'affichage */
 function setTime()
 {
+    var dur_total;
+    var curent_time;
+
     curent_time = Math.round(video.currentTime);
     dur_total = Math.round(video.duration);
+
+    /*var progress = document.getElementById("progress");
+    progress.max = dur_total;
+    progress.value = curent_time;*/
+
 
     if(curent_time <= 9)
     {

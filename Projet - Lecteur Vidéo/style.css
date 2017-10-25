@@ -11,7 +11,11 @@ table, th, td
     height: auto;
 }
 
-input[type="range"]
+input[type="range"], progress
 {
     width: 100%;
+    -webkit-transition: width 1.6s linear;
+    -moz-transition: width 1.6s linear;
+    -o-transition: width 1.6s linear;
+    transition: width 1.6s linear;
 }
