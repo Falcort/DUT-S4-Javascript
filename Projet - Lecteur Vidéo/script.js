@@ -11,6 +11,7 @@ function init()
 {
     setTime();
 
+    /* Boutton pour lancer la video */
     document.getElementById("btn_play").addEventListener("click",
         function(event)
         {
@@ -26,27 +27,28 @@ function init()
                 video.pause();
                 play = false;
             }
-        });
-    document.getElementById("btn_full").addEventListener('click',
-        function (event)
-        {
+        }
+    );
 
-        });
-
+    /* Boutton pour re lancer la video */
     document.getElementById("btn_stop").addEventListener("click",
         function (event)
         {
             video.currentTime = 0;
-        });
+        }
+    );
 
+    /* Ligne (Range) pour le sond */
     document.getElementById("range_sound").addEventListener("input",
         function(event)
         {
             document.getElementById("volume").innerHTML = document.getElementById("range_sound").value;
             video.volume = document.getElementById("range_sound").value/100;
             setVolume(0);
-        });
+        }
+    );
 
+    /* Boutton de mute du sond */
     document.getElementById("mute").addEventListener("click",
         function (event)
         {
@@ -61,9 +63,11 @@ function init()
                 setVolume(0);
             }
             console.log("Muted = " + muted);
-        });
+        }
+    );
 
-
+    /* Button de fullscreen */
+    /* Ce Boutton est plus la pour la déco, car il fait revenir les controls de base */
     document.getElementById("btn_full").addEventListener("click",
         function(event)
         {
@@ -79,21 +83,28 @@ function init()
             {
                 video.webkitRequestFullscreen();
             }
-        });
+        }
+    );
 
+    /* Ligne (Range) pour la durée de la video */
     document.getElementById("range_video").addEventListener("input",
         function (event)
         {
+            document.getElementById(video.currentTime)
             video.currentTime = document.getElementById("range_video").value/10;
-        });
+        }
+    );
 
+    /* Fonction qui met a jour la durée de la video */
     document.getElementById("video").addEventListener("timeupdate",
         function (event)
         {
             setTime();
-        });
+        }
+    );
 }
 
+/* Fonction de mise en forme du temps et d'affichage */
 function setTime()
 {
     curent_time = Math.round(video.currentTime);
@@ -118,6 +129,7 @@ function setTime()
     }
 }
 
+/* Fonction pour le volume */
 function setVolume(i)
 {
     if(i === 1)
