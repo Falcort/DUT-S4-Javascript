@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Lecteur vidéeo</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
@@ -17,8 +18,9 @@
             </tr>
             <tr>
                 <th colspan="4">
-                    <input id="range_video" type="range">
-                    <progress value="0" max="100" id="progress"></progress>
+                    <div class="progress" id="progress">
+                        <div class="determinate" id="determinate" style="width: 0%"></div>
+                    </div>
                     <p id="time">00 - 00</p>
                 </th>
             </tr>
@@ -38,24 +40,24 @@
             </tr>
             <tr>
                 <td>
-                    <button id="btn_play">
+                    <button id="btn_play" class="waves-effect waves-light btn">
                         <i class="material-icons" id="play_btn">play_arrow</i>
                     </button>
                 </td>
                 <td>
-                    <button id="btn_stop">
+                    <button id="btn_stop" class="waves-effect waves-light btn">
                         <i class="material-icons">replay</i>
                     </button>
                 </td>
                 <td>
                     <input id="range_sound" type="range" value="50">
                     <p id="volume">50</p>
-                    <button id="mute">
+                    <button id="mute" class="waves-effect waves-light btn">
                         <i class="material-icons" id="volume_icon">volume_down</i>
                     </button>
                 </td>
                 <td>
-                    <button id="btn_full">
+                    <button id="btn_full" class="waves-effect waves-light btn">
                         <i class="material-icons">aspect_ratio</i>
                     </button>
                 </td>
@@ -67,10 +69,10 @@
         <br />
         <br />
         <br />
-        <button id="btn_add">
+        <button id="btn_add" class="waves-effect waves-light btn">
             <i class="material-icons">add</i>
         </button>
-        <button id="btn_remove">
+        <button id="btn_remove" class="waves-effect waves-light btn">
             <i class="material-icons">clear</i>
         </button>
         <script type="text/javascript" src="script.js"></script>

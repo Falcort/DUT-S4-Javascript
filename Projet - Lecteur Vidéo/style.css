@@ -19,3 +19,12 @@ input[type="range"], progress
     -o-transition: width 1.6s linear;
     transition: width 1.6s linear;
 }
+
+.progress
+{
+    height: 20px;
+}
+.progress .determinate
+{
+    transition: width 1s linear;
+}
