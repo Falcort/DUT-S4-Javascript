@@ -131,6 +131,34 @@ function init()
             video.currentTime = (position/100)*Math.round(video.duration);
         }
     );
+
+    document.getElementById("btn_add").addEventListener("click",
+        function (e)
+        {
+            var table = document.getElementById("tableURL");
+            var nbRow = table.getElementsByTagName("tr").length;
+            var row = table.insertRow(nbRow);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+
+            console.log(learnRegExp(document.getElementById("URL").value));
+
+            if(document.getElementById("URL").value === "" || !learnRegExp(document.getElementById("URL").value))
+            {
+                document.getElementById("URL").style.borderBottom ="2px solid red";
+            }
+            else
+            {
+                cell1.innerHTML = document.getElementById("URL").value;
+
+                cell2.innerHTML = "<button id=\"btn_remove\" class=\"waves-effect waves-light btn\">\n" +
+                    "                    <i class=\"material-icons\">clear</i>\n" +
+                    "                </button>";
+                document.getElementById("URL").value = "";
+                document.getElementById("URL").style.borderBottom = null;
+            }
+        }
+    );
 }
 
 /* Fonction de mise en forme du temps et d'affichage */
@@ -197,4 +225,9 @@ function setVolume(i)
             muted = true;
         }
     }
+}
+
+function learnRegExp(s) {
+    var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    return regexp.test(s);
 }
