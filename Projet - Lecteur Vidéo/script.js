@@ -151,14 +151,15 @@ function init()
             {
                 cell1.innerHTML = document.getElementById("URL").value;
 
-                cell2.innerHTML = "<button id=\"btn_remove\" class=\"waves-effect waves-light btn\">\n" +
-                    "                    <i class=\"material-icons\">clear</i>\n" +
-                    "                </button>";
+                cell2.innerHTML = "<button id=\"remove" + nbRow+ "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
                 document.getElementById("URL").value = "";
                 document.getElementById("URL").style.borderBottom = null;
+                document.getElementById("remove" + nbRow).addEventListener("click", remove);
             }
         }
     );
+
+
 }
 
 /* Fonction de mise en forme du temps et d'affichage */
@@ -230,4 +231,12 @@ function setVolume(i)
 function learnRegExp(s) {
     var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     return regexp.test(s);
+}
+
+function remove()
+{
+    var id = this.id;
+    var table = document.getElementById("tableURL");
+
+    table.deleteRow(id);
 }
