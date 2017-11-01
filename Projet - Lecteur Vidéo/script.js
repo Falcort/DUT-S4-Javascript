@@ -138,6 +138,7 @@ function init()
             var table = document.getElementById("tableURL");
             var nbRow = table.getElementsByTagName("tr").length;
             var row = table.insertRow(nbRow);
+            row.id=nbRow;
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
 
@@ -151,10 +152,10 @@ function init()
             {
                 cell1.innerHTML = document.getElementById("URL").value;
 
-                cell2.innerHTML = "<button id=\"remove" + nbRow+ "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
+                cell2.innerHTML = "<button id=\"" + nbRow + "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
                 document.getElementById("URL").value = "";
                 document.getElementById("URL").style.borderBottom = null;
-                document.getElementById("remove" + nbRow).addEventListener("click", remove);
+                document.getElementById(nbRow).addEventListener("click", remove);
             }
         }
     );
@@ -236,7 +237,9 @@ function learnRegExp(s) {
 function remove()
 {
     var id = this.id;
-    var table = document.getElementById("tableURL");
 
-    table.deleteRow(id);
+    console.log(id);
+    var table = document.getElementById("tableURL");
+    var row = document.getElementById(id);
+    row.parentNode.removeChild(row);
 }
