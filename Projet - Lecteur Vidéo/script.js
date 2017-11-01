@@ -5,6 +5,7 @@ var play = false;
 var muted = false;
 var started = false;
 var mouseDown;
+var tableau = Array();
 
 function init()
 {
@@ -142,8 +143,6 @@ function init()
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
 
-            console.log(learnRegExp(document.getElementById("URL").value));
-
             if(document.getElementById("URL").value === "" || !learnRegExp(document.getElementById("URL").value))
             {
                 document.getElementById("URL").style.borderBottom ="2px solid red";
@@ -153,9 +152,11 @@ function init()
                 cell1.innerHTML = document.getElementById("URL").value;
 
                 cell2.innerHTML = "<button id=\"" + nbRow + "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
+                tableau.push(document.getElementById("URL").value);
                 document.getElementById("URL").value = "";
                 document.getElementById("URL").style.borderBottom = null;
                 document.getElementById(nbRow).addEventListener("click", remove);
+                console.log(tableau);
             }
         }
     );
@@ -237,9 +238,14 @@ function learnRegExp(s) {
 function remove()
 {
     var id = this.id;
-
-    console.log(id);
-    var table = document.getElementById("tableURL");
-    var row = document.getElementById(id);
-    row.parentNode.removeChild(row);
+    var tr = document.getElementById(id);
+    var td = tr.cells[0].innerHTML;
+    console.log(td);
+    var index = tableau.indexOf(td);
+    if (index >= 0) {
+        tableau.splice( index, 1 );
+    }
+    var tr = document.getElementById(id);
+    tr.parentNode.removeChild(tr);
+    console.log(tableau);
 }
