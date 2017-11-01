@@ -5,7 +5,8 @@ var play = false;
 var muted = false;
 var started = false;
 var mouseDown;
-var tableau = Array();
+var tableau = Array("POUR TABLEAU A 1");
+var ITtableau = 1;
 
 function init()
 {
@@ -161,7 +162,42 @@ function init()
         }
     );
 
+    document.getElementById("btn_prev").addEventListener("click",
+        function (e)
+        {
+            if(tableau.length === 1)
+            {
+                video.setAttribute("src", "video/mov_bbb.mp4");
+            }
+            else
+            {
+                video.setAttribute("src", tableau[ITtableau]);
+                if((ITtableau - 1)  > 0)
+                {
+                    ITtableau--;
+                }
+            }
+        }
+    );
 
+    document.getElementById("btn_next").addEventListener("click",
+        function (e)
+        {
+            if(tableau.length === 1)
+            {
+                video.setAttribute("src", "video/mov_bbb.mp4");
+            }
+            else
+            {
+                video.setAttribute("src", tableau[ITtableau]);
+                if((ITtableau + 1 ) < tableau.length)
+                {
+                    ITtableau++;
+                }
+            }
+
+        }
+    );
 }
 
 /* Fonction de mise en forme du temps et d'affichage */
@@ -242,7 +278,7 @@ function remove()
     var td = tr.cells[0].innerHTML;
     console.log(td);
     var index = tableau.indexOf(td);
-    if (index >= 0) {
+    if (index >= 1) {
         tableau.splice( index, 1 );
     }
     var tr = document.getElementById(id);

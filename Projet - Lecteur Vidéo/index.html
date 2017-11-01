@@ -38,7 +38,7 @@
             </div>
 
             <div class="row">
-                <div class="col s6 offset-s3">
+                <div class="col s8 offset-s2">
                     <div class="col s2">
                         <button id="btn_play" class="waves-effect waves-light btn">
                             <i class="material-icons" id="play_btn">play_arrow</i>
@@ -50,21 +50,35 @@
                         </button>
                     </div>
                     <div class="col s6">
-                        <div class="col s6">
-                            <input id="range_sound" type="range" value="50">
-                            <p id="volume">50</p>
-                        </div>
-                        <div class="col s6">
-                            <button id="mute" class="waves-effect waves-light btn">
-                                <i class="material-icons" id="volume_icon">volume_down</i>
-                            </button>
-                        </div>
+                        <dic class="row">
+                            <div class="col s6">
+                                <input id="range_sound" type="range" value="50">
+                                <p id="volume">50</p>
+                            </div>
+                            <div class="col s6">
+                                <button id="mute" class="waves-effect waves-light btn">
+                                    <i class="material-icons" id="volume_icon">volume_down</i>
+                                </button>
+                            </div>
+                        </dic>
                     </div>
                     <div class="col s2">
                         <button id="btn_full" class="waves-effect waves-light btn">
                             <i class="material-icons">aspect_ratio</i>
                         </button>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2 offset-s4">
+                    <button id="btn_prev" class="waves-effect waves-light btn">
+                        <i class="material-icons">skip_previous</i>
+                    </button>
+                </div>
+                <div class="col s2">
+                    <button id="btn_next" class="waves-effect waves-light btn">
+                        <i class="material-icons">skip_next</i>
+                    </button>
                 </div>
             </div>
         </div>
