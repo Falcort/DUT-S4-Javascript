@@ -1,7 +1,6 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     </head>
     <style>
         .menu
@@ -9,14 +8,46 @@
             margin-top: 50vh;
             transform: translateY(-50%);
         }
+        #git
+        {
+            transition: 1s;
+        }
     </style>
     <body>
         <div class="menu center-align">
-            <a class="waves-effect waves-light btn" href="Exercice 1 - Formulaire/index.html">Exercie 1 - Formulaire</a>
-            <a class="waves-effect waves-light btn" href="Exercice 2 - Horloge/index.html">Exercice 2 - Horloge</a>
-            <a class="waves-effect waves-light btn" href="Exercice 3 - AJAX/index.html">Exercice 3 - AJAX</a>
-            <a class="waves-effect waves-light btn" href="Exerciec 4 - Canvas (Paint)/index.html">Exercice 4 - Canvas</a>
-            <a class="waves-effect waves-light btn" href="Projet - Lecteur Vidéo/index.html">Projet - Lecteur Vidéo</a>
+            <div class="row">
+                <a class="waves-effect waves-light btn" href="Exercice 1 - Formulaire/index.html">Exercie 1 - Formulaire</a>
+                <a class="waves-effect waves-light btn" href="Exercice 2 - Horloge/index.html">Exercice 2 - Horloge</a>
+                <a class="waves-effect waves-light btn" href="Exercice 3 - AJAX/index.html">Exercice 3 - AJAX</a>
+                <a class="waves-effect waves-light btn" href="Exerciec 4 - Canvas (Paint)/index.html">Exercice 4 - Canvas</a>
+                <a class="waves-effect waves-light btn" href="Projet - Lecteur Vidéo/index.html">Projet - Lecteur Vidéo</a>
+            </div>
+            <div class="row">
+                <a href="https://github.com/Falcort/DUT-S4-Javascript">
+                    <h1 id="git">
+                        Lien git
+                    </h1>
+                </a>
+            </div>
         </div>
+        <script>
+            setInterval(
+                function (e)
+                {
+                    var git = document.getElementById("git");
+                    git.style.color = getRandomColor();
+                }, 1000
+            );
+
+            function getRandomColor()
+            {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        </script>
     </body>
 </html>

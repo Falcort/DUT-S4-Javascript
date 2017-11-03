@@ -141,6 +141,7 @@ function init()
             var nbRow = table.getElementsByTagName("tr").length;
             var row = table.insertRow(nbRow);
             row.id=nbRow;
+            row.setAttribute("draggable", "true");
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
 
@@ -152,13 +153,18 @@ function init()
             {
                 cell1.innerHTML = document.getElementById("URL").value;
 
-                cell2.innerHTML = "<button id=\"" + nbRow + "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
+                cell2.innerHTML = "<button id=\"button" + nbRow + "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
                 tableau.push(document.getElementById("URL").value);
                 document.getElementById("URL").value = "";
                 document.getElementById("URL").style.borderBottom = null;
-                document.getElementById(nbRow).addEventListener("click", remove);
-                console.log(tableau);
+                document.getElementById("button" + nbRow).addEventListener("click", remove);
             }
+            row.addEventListener("dragstart",
+                function(e)
+                {
+                    /* Fonction de drag & drop */
+                }
+            );
         }
     );
 
@@ -214,8 +220,6 @@ function setTime()
     var tempsProgress = (curent_time/dur_total)*100;
     determinate.style.width = tempsProgress + "%";
 
-
-
     if(curent_time <= 9)
     {
         curent_time = "0" + curent_time;
@@ -266,7 +270,8 @@ function setVolume(i)
     }
 }
 
-function learnRegExp(s) {
+function learnRegExp(s)
+{
     var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     return regexp.test(s);
 }
@@ -274,14 +279,14 @@ function learnRegExp(s) {
 function remove()
 {
     var id = this.id;
+    id = id.replace("button", "");
     var tr = document.getElementById(id);
     var td = tr.cells[0].innerHTML;
-    console.log(td);
     var index = tableau.indexOf(td);
-    if (index >= 1) {
+    if (index >= 1)
+    {
         tableau.splice( index, 1 );
     }
     var tr = document.getElementById(id);
     tr.parentNode.removeChild(tr);
-    console.log(tableau);
 }

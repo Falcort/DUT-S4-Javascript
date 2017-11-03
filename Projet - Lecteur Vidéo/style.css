@@ -32,3 +32,8 @@ video
     height: 25vw;
     width: auto;
 }
+
+tr
+{
+    cursor: move;
+}
