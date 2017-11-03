@@ -19,13 +19,13 @@ function init()
         {
             if(play == false)
             {
-                document.getElementById("play_btn").innerHTML = "pause";
+                document.getElementById("play_btn").textContent = "pause";
                 video.play();
                 play = true;
             }
             else
             {
-                document.getElementById("play_btn").innerHTML = "play_arrow";
+                document.getElementById("play_btn").textContent = "play_arrow";
                 video.pause();
                 play = false;
             }
@@ -44,7 +44,7 @@ function init()
     document.getElementById("range_sound").addEventListener("input",
         function(event)
         {
-            document.getElementById("volume").innerHTML = document.getElementById("range_sound").value;
+            document.getElementById("volume").textContent = document.getElementById("range_sound").value;
             video.volume = document.getElementById("range_sound").value/100;
             setVolume(0);
         }
@@ -151,9 +151,9 @@ function init()
             }
             else
             {
-                cell1.innerHTML = document.getElementById("URL").value;
+                cell1.textContent = document.getElementById("URL").value;
 
-                cell2.innerHTML = "<button id=\"button" + nbRow + "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
+                cell2.textContent = "<button id=\"button" + nbRow + "\" class=\"waves-effect waves-light btn btn_remove\"><i class=\"material-icons\">clear</i></button>";
                 tableau.push(document.getElementById("URL").value);
                 document.getElementById("URL").value = "";
                 document.getElementById("URL").style.borderBottom = null;
@@ -228,13 +228,13 @@ function setTime()
     {
         dur_total = "0" + dur_total;
     }
-    document.getElementById("time").innerHTML = "00:" + curent_time + " - " + "00:" +dur_total;
+    document.getElementById("time").textContent = "00:" + curent_time + " - " + "00:" +dur_total;
 
     //document.getElementById("range_video").value = curent_time*10;
 
     if(curent_time === dur_total)
     {
-        document.getElementById("play_btn").innerHTML = "play_arrow";
+        document.getElementById("play_btn").textContent = "play_arrow";
         play = false;
     }
 }
@@ -244,27 +244,31 @@ function setVolume(i)
 {
     if(i === 1)
     {
-        document.getElementById("volume_icon").innerHTML = "volume_off";
+        document.getElementById("volume_icon").textContent = "volume_off";
         muted = true;
+        video.muted = true;
     }
     else
     {
         if(document.getElementById("range_sound").value >= 75)
         {
-            document.getElementById("volume_icon").innerHTML = "volume_up";
+            document.getElementById("volume_icon").textContent = "volume_up";
+            video.muted = false;
         }
         else if(document.getElementById("range_sound").value <= 25)
         {
-            document.getElementById("volume_icon").innerHTML = "volume_mute";
+            document.getElementById("volume_icon").textContent = "volume_mute";
+            video.muted = false;
         }
         else
         {
-            document.getElementById("volume_icon").innerHTML = "volume_down";
+            document.getElementById("volume_icon").textContent = "volume_down";
+            video.muted = false;
         }
 
         if(document.getElementById("range_sound").value < 1)
         {
-            document.getElementById("volume_icon").innerHTML = "volume_off";
+            document.getElementById("volume_icon").textContent = "volume_off";
             muted = true;
         }
     }
@@ -281,7 +285,7 @@ function remove()
     var id = this.id;
     id = id.replace("button", "");
     var tr = document.getElementById(id);
-    var td = tr.cells[0].innerHTML;
+    var td = tr.cells[0].textContent;
     var index = tableau.indexOf(td);
     if (index >= 1)
     {
